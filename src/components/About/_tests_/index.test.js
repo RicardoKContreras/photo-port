@@ -50,4 +50,4 @@ describe('About component', () => {
 // includes elements, attributes, and text content.
 //The file in the __snapshots__ folder will serve as the base model of
 // the component's structure, and be compared against new snapshots that
-//are created by the asFragment function
+//are created by the asFragment function.

@@ -25,14 +25,17 @@ function categorySelected(name) {
     return (
         <header>
             <h2>
-                <a href="/">
+                {/* we'll use a separate data-testid attribute specific for testing purposes instead of using the id */}
+                {/* The class and id attributes are used for CSS and JavaScript selection.  */}
+                {/* In the case of a change in styling, we wouldn't want to break tests as a side effect of an unrelated change. */}
+                <a data-testid="link" href="/">
                     <span role="img" aria-label="camera">📸</span> Oh Snap!
                 </a>
             </h2>
             <nav>
                 <ul className='flex-row'>
                     <li className='mx-2'>
-                        <a href="#about">
+                        <a data-testid="about" href="#about">
                             About me
                         </a>
                     </li>
