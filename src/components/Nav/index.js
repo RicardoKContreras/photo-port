@@ -1,35 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { capitalizeFirstLetter } from '../../utils/helpers';
 
 
-function Nav() {
+function Nav(props) {
 
-const categories = [
-    {
-        name: "commercial",
-        description:
-        "Photos of grocery stores, food trucks, and other commercial projects",
-    },
-    {name: "portraits", description: "Portraits of people in my life"},
-    {name: "food", description: "Delicious delicacies"},
-    {
-        name: "landscape",
-        description: "Fields, famrhouses, waterfalls, and the beauty of nature",   
-    },
+const {
+    categories = [],
+    setCurrentCategory,
+    currentCategory,
+} = props
 
-];
+useEffect(() => {
+    document.title = capitalizeFirstLetter(currentCategory.name);
+}, [currentCategory]);
 
-function categorySelected(name) {
-    console.log(`${name} clicked`)
-}
+// function categorySelected(name) {
+//     console.log(`${name} clicked`)
+// }
 
     return (
-        <header>
+        <header className="flex-row px-1">
             <h2>
                 {/* we'll use a separate data-testid attribute specific for testing purposes instead of using the id */}
                 {/* The class and id attributes are used for CSS and JavaScript selection.  */}
                 {/* In the case of a change in styling, we wouldn't want to break tests as a side effect of an unrelated change. */}
                 <a data-testid="link" href="/">
-                    <span role="img" aria-label="camera">📸</span> Oh Snap!
+                    <span role="img" aria-label="camera">
+                        {" "}
+                        📸
+                        </span>{" "}
+                         Oh Snap!
                 </a>
             </h2>
             <nav>
@@ -42,15 +42,20 @@ function categorySelected(name) {
                     <li>
                         <span>Contact</span>
                     </li>
+                    {/* //Whenever we map over anything in JSX, the outermost element must have a key attribute that's set to be something unique.
+                        // This helps React keep track of items in the virtual DOM. */}
                     {categories.map((category) => (
                         <li
-                        className='mx-1'
-                        //Whenever we map over anything in JSX, the outermost element must have a key attribute that's set to be something unique.
-                        // This helps React keep track of items in the virtual DOM.
-                        key={category.name}
-                        >
-                            <span onClick={categorySelected}>
-                                {category.name}
+                        className={`mx-1 ${
+                            currentCategory.name === category.name && 'navActive'
+                            }`} key={category.name}>
+                          <span
+                            onClick={() => {
+                              setCurrentCategory(category)
+                            }}
+                          >
+                            {capitalizeFirstLetter(category.name)}
+                        
                             </span>
                         </li>
                     ))}
